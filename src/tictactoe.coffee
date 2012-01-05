@@ -59,11 +59,11 @@ class Game
     console.log "-- Round #{@round} --"
     @field.print()
     if @player1.hasWon(@field)
-      console.log "Player 1 has won"
+      console.log "player #{@player1.symbol} wins"
     else if @player2.hasWon(@field)
-      console.log "Player 2 has won"
+      console.log "player #{@player2.symbol} wins"
     else if @round > 9
-      console.log "Game is over"
+      console.log "game over"
 
   start:->
     @nextTurn() while not@isFinished()
@@ -90,7 +90,12 @@ class Player
     won = @symbol + @symbol + @symbol
 
     # check horizontal and vertical
+    diagonal1 = ""
+    diagonal2 = ""
     for i in [0..2]
+      diagonal1 += field.get(i, i)
+      diagonal2 += field.get(2 - i, i)
+
       vertical = ""
       horizontal = ""
       for j in [0..2]
@@ -99,13 +104,6 @@ class Player
 
       if vertical is won or horizontal is won
         return true
-
-    # check diagonal
-    diagonal1 = ""
-    diagonal2 = ""
-    for i in [0..2]
-      diagonal1 += field.get(i, i)
-      diagonal2 += field.get(2-i, i)
 
     if diagonal1 is won or diagonal2 is won
         return true
