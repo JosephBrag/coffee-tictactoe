@@ -14,11 +14,11 @@ class Field
       @array[i] = BLANK
 
   set:(value, row, col) ->
-    if not@isEmpty(row, col) then throw 'field is not empty'
+    if not @isEmpty(row, col) then throw 'field is not empty'
     @array[@index(row, col)] = value
 
   get:(row, col) ->
-    @array[@index(row, col)]
+    return @array[@index(row, col)]
 
   reset:->
     for i in [0..@array.length]
@@ -26,18 +26,18 @@ class Field
 
   index:(row, col) ->
     if 3 > row >= 0 and 3 > col >= 0
-      row * 3 + col
+      return row * 3 + col
     else
       throw "wrong dimension: row=#{row}, col=#{col}"
 
   isEmpty:(row, col) ->
-    @array[@index(row, col)] is BLANK
+    return @array[@index(row, col)] is BLANK
 
   print:->
     for i in [0..6] by 3
       row = "|"
-    for j in [0..3 - 1]
-      row += " #{@array[i + j]} |"
+      for j in [0..3 - 1]
+        row += " #{@array[i + j]} |"
       console.log row
 
 
