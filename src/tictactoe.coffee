@@ -44,8 +44,8 @@ class Field
 class Game
   constructor:->
     @field = new Field()
-    @player1 = new Player(CROSS, new SimpleStrategy())
-    @player2 = new Player(CIRCLE, new SimpleStrategy())
+    @player1 = new Player(CROSS, new RandomStrategy())
+    @player2 = new Player(CIRCLE, new RandomStrategy())
     @round = 1
 
   set:(player, row, col) ->
@@ -62,7 +62,7 @@ class Game
       console.log "player #{@player1.symbol} wins"
     else if @player2.hasWon(@field)
       console.log "player #{@player2.symbol} wins"
-    else if @round > 9
+    else if @round >= 9
       console.log "game over"
 
   start:->
@@ -115,7 +115,10 @@ class Player
     field.set(@symbol, row, col)
 
 
-class SimpleStrategy
+###
+  This strategy is really simple: just determine next free field.
+###
+class GoofyStrategy
   makeTurn:(field) ->
     for row in [0..2]
       for col in [0..2]
@@ -124,6 +127,24 @@ class SimpleStrategy
           return [row, col]
 
     throw 'cannot determine blank field'
+
+
+###
+  Randomly determine free field.
+###
+class RandomStrategy
+  rand: ->
+    return Math.floor(Math.random() * 3)
+
+  makeTurn:(field) ->
+    row = @rand()
+    col = @rand()
+    val = field.get row, col
+    if (val is BLANK)
+      return [row, col]
+    else
+      return @makeTurn(field)
+
 
 
 game = new Game()
