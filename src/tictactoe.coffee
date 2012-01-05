@@ -81,12 +81,6 @@ class Player
   constructor:(@symbol, @strategy) ->
 
   hasWon: (field) ->
-    ###
-      0 1 2
-      3 4 5
-      6 7 8
-    ###
-
     won = @symbol + @symbol + @symbol
 
     # check horizontal and vertical
