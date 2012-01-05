@@ -1,0 +1,7 @@
+## Intellij IDEA ##
+out
+*.iml
+.idea
+
+## Mac OSX ##
+.DS_Store
