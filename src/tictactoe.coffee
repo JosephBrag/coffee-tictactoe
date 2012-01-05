@@ -81,7 +81,15 @@ class Player
   constructor:(@symbol, @strategy) ->
 
   hasWon: (field) ->
+    ###
+      0 1 2
+      3 4 5
+      6 7 8
+    ###
+
     won = @symbol + @symbol + @symbol
+
+    # check horizontal and vertical
     for i in [0..2]
       vertical = ""
       horizontal = ""
@@ -92,6 +100,15 @@ class Player
       if vertical is won or horizontal is won
         return true
 
+    # check diagonal
+    diagonal1 = ""
+    diagonal2 = ""
+    for i in [0..2]
+      diagonal1 += field.get(i, i)
+      diagonal2 += field.get(2-i, i)
+
+    if diagonal1 is won or diagonal2 is won
+        return true
 
     return false
 
