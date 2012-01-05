@@ -52,12 +52,18 @@ class Game
     @field.set(player.symbol, row, col)
 
   isFinished:->
-    @round > 9
+    return @player1.hasWon(@field) or @player2.hasWon(@field) or @round > 9
 
   print:->
     console.log ""
     console.log "-- Round #{@round} --"
     @field.print()
+    if @player1.hasWon(@field)
+      console.log "Player 1 has won"
+    else if @player2.hasWon(@field)
+      console.log "Player 2 has won"
+    else if @round > 9
+      console.log "Game is over"
 
   start:->
     @nextTurn() while not@isFinished()
@@ -73,19 +79,36 @@ class Game
 
 class Player
   constructor:(@symbol, @strategy) ->
+
+  hasWon: (field) ->
+    won = @symbol + @symbol + @symbol
+    for i in [0..2]
+      vertical = ""
+      horizontal = ""
+      for j in [0..2]
+        vertical += field.get(i, j)
+        horizontal += field.get(j, i)
+
+      if vertical is won or horizontal is won
+        return true
+
+
+    return false
+
   makeTurn:(field) ->
     [row, col] = @strategy.makeTurn(field)
     field.set(@symbol, row, col)
 
 
 class SimpleStrategy
-  constructor:->
   makeTurn:(field) ->
     for row in [0..2]
       for col in [0..2]
         val = field.get row, col
         if val is BLANK
           return [row, col]
+
+    throw 'cannot determine blank field'
 
 
 game = new Game()
