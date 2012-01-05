@@ -42,10 +42,10 @@ class Field
 
 
 class Game
-  constructor:->
+  constructor: (strat1, strat2)->
     @field = new Field()
-    @player1 = new Player(CROSS, new RandomStrategy())
-    @player2 = new Player(CIRCLE, new RandomStrategy())
+    @player1 = new Player(CROSS, new strat1())
+    @player2 = new Player(CIRCLE, new strat2())
     @round = 1
 
   set:(player, row, col) ->
@@ -147,5 +147,5 @@ class RandomStrategy
 
 
 
-game = new Game()
+game = new Game(GoofyStrategy, RandomStrategy)
 game.start()
