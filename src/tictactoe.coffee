@@ -42,11 +42,11 @@ class Field
 
 
 class Game
-  constructor: (strat1, strat2)->
-    @field = new Field()
-    @player1 = new Player(CROSS, new strat1())
-    @player2 = new Player(CIRCLE, new strat2())
+  constructor: (Strategy1, Strategy2)->
     @round = 1
+    @field = new Field()
+    @player1 = new Player(CROSS, new Strategy1())
+    @player2 = new Player(CIRCLE, new Strategy2())
 
   set:(player, row, col) ->
     @field.set(player.symbol, row, col)
@@ -109,6 +109,8 @@ class Player
     field.set(@symbol, row, col)
 
 
+
+
 ###
   This strategy is really simple: just determine next free field.
 ###
@@ -141,5 +143,4 @@ class RandomStrategy
 
 
 
-game = new Game(GoofyStrategy, RandomStrategy)
-game.start()
+new Game(RandomStrategy, RandomStrategy).start()
