@@ -6,11 +6,3 @@ this game is written in Coffee-Script
 pre-req: install node.js, install coffee-script
 
 usage: coffee tictactoe.coffee
-
-
-
-
-Copyright (c) 2012, Benjamin Winterberg
-All rights reserved.
-
-https://github.com/winterbe
